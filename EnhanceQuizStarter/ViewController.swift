@@ -6,7 +6,8 @@
 //  Copyright © 2018 Treehouse. All rights reserved.
 //
 //  Refactored existing code using OOP principles and MVC design pattern
-//  and added more few more features by Abhilash Muraleedharan on 07/07/18.
+//  and added few more features as per project requirement.
+//  By Abhilash Muraleedharan on 07/07/18.
 //
 
 import UIKit
@@ -26,37 +27,40 @@ class ViewController: UIViewController {
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var progressLabel: UILabel!
     
+    // Declaring necessary stored properties
     let quiz = Quiz(questions: questionsList)
-    var gameTimer: Timer!
+    var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
     var seconds_left = timer_value
     
     // MARK: - Actions
-    
     @IBAction func choice1(_ sender: UIButton) {
+        // Set background to a different color to indicate the option chosen
         choice1Button.setBackgroundColor(UIColor.orange, for: .normal)
-        var isCorrect = false
+        var isCorrect: Bool
+        // Evaluate the chosen answer
         isCorrect = quiz.evaluate(answer: (choice1Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
+        // Add a 1 second delay before displaying the result
         processAnswer(after: 1, ofStatus: isCorrect)
     }
     
     @IBAction func choice2(_ sender: UIButton) {
         choice2Button.setBackgroundColor(UIColor.orange, for: .normal)
-        var isCorrect = false
+        var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice2Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
         processAnswer(after: 1, ofStatus: isCorrect)
     }
     
     @IBAction func choice3(_ sender: UIButton) {
         choice3Button.setBackgroundColor(UIColor.orange, for: .normal)
-        var isCorrect = false
+        var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice3Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
         processAnswer(after: 1, ofStatus: isCorrect)
     }
     
     @IBAction func choice4(_ sender: UIButton) {
         choice4Button.setBackgroundColor(UIColor.orange, for: .normal)
-        var isCorrect = false
+        var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice4Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
         processAnswer(after: 1, ofStatus: isCorrect)
     }
@@ -77,7 +81,9 @@ class ViewController: UIViewController {
         displayQuestion()
     }
     
+    /// Instance method to display the status of an answer to a question
     func announceResult(status: Bool) {
+        // Invalidate the timer
         gameTimer.invalidate()
         if status {
             quiz.correctQuestions += 1
@@ -87,10 +93,11 @@ class ViewController: UIViewController {
             resultLabel.isHidden = false
         } else {
             quiz.playWrongAnswerSound()
-            resultLabel.textColor = UIColor.red
+            resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
             resultLabel.isHidden = false
         }
+        // To highlight the right answer
         switch (quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.0) {
         case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
         case 1: choice2Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -99,16 +106,17 @@ class ViewController: UIViewController {
         default:
             break;
         }
-        disableButtons()
         gameTimer.invalidate()
-        checkStatus(after: 2)
+        checkStatus(after: 2)  // Check quiz progress and score status after 2 seconds
     }
     
+    /// Helper method to reset the timer value
     func resetTimer() {
         seconds_left = timer_value
         timerRunning = false
     }
     
+    /// Helper method to start a timer
     func startTimer() {
         timerLabel.text = "\(seconds_left)"
         if !timerRunning {
@@ -117,16 +125,17 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Timer Event Handler
     @objc func timeOutHandler() {
         seconds_left -= 1
         timerLabel.text = "\(seconds_left)"
         if (seconds_left == 0) {
             gameTimer.invalidate()
             quiz.playTimeOutSound()
-            disableButtons()
-            resultLabel.textColor = UIColor.red
+            resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
             resultLabel.isHidden = false
+            // Highlight the right answer
             switch(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.0) {
             case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
             case 1: choice2Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -135,12 +144,11 @@ class ViewController: UIViewController {
             default:
             break;
             }
-            checkStatus(after: 2)
+            checkStatus(after: 2) // Check quiz progress and score status after 2 seconds
         }
     }
     
-    
-    
+    /// Helper method to display a question on the screen
     func displayQuestion() {
         resultLabel.isHidden = true
         let quizQuestion = quiz.getQuestion()
@@ -153,6 +161,7 @@ class ViewController: UIViewController {
         choice1Button.setTitle(quizQuestion.choices[0], for: .normal)
         choice2Button.setTitle(quizQuestion.choices[1], for: .normal)
         choice3Button.setTitle(quizQuestion.choices[2], for: .normal)
+        // Show option4 button only if 4 options are present
         if (quizQuestion.choices.count == 3) {
             choice4Button.isHidden = true
         } else {
@@ -166,6 +175,7 @@ class ViewController: UIViewController {
         startTimer()
     }
     
+    /// Helper method to display the final quiz score
     func displayScore() {
         
         // Hide buttons and labels
@@ -191,13 +201,14 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Helper method that gives next round of questions
     func nextRound() {
             seconds_left = timer_value
-            enableButtons()
-            resetButtonColors()
+            activateButtons()
             displayQuestion()
     }
 
+    /// Helper method to inrtouduce some delay before announcing result of a question
     func processAnswer(after seconds: Int, ofStatus status: Bool) {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
@@ -210,6 +221,7 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Helper method to introduce some delay before checking the quiz status
     func checkStatus(after seconds: Int) {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
@@ -222,24 +234,35 @@ class ViewController: UIViewController {
         }
     }
     
-    func enableButtons() {
-        
+    /// Helper method to activate buttons
+    func activateButtons() {
         choice1Button.isUserInteractionEnabled = true
         choice2Button.isUserInteractionEnabled = true
         choice3Button.isUserInteractionEnabled = true
         choice4Button.isUserInteractionEnabled = true
-        
+        // Set font and tint color of buttons to reflect the re-activated state
+        choice1Button.tintColor = UIColor.white
+        choice2Button.tintColor = UIColor.white
+        choice3Button.tintColor = UIColor.white
+        choice4Button.tintColor = UIColor.white
+        resetButtonColors()
     }
     
-    func disableButtons() {
-        
+    /// Helper method to deactivate buttons
+    func deactivateButtons() {
         choice1Button.isUserInteractionEnabled = false
         choice2Button.isUserInteractionEnabled = false
         choice3Button.isUserInteractionEnabled = false
         choice4Button.isUserInteractionEnabled = false
-        
+        // Set font and tint color of buttons to reflect the deactivated state
+        choice1Button.tintColor = UIColor.lightGray
+        choice2Button.tintColor = UIColor.lightGray
+        choice3Button.tintColor = UIColor.lightGray
+        choice4Button.tintColor = UIColor.lightGray
+        resetButtonColors()
     }
     
+    /// Helper method to reset highlighted button colors back to it's original color
     func resetButtonColors() {
         choice1Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
         choice2Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
@@ -247,6 +270,7 @@ class ViewController: UIViewController {
         choice4Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
     }
     
+    /// Helper method to hide buttons
     func hideButtons() {
         choice1Button.isHidden = true
         choice2Button.isHidden = true
@@ -254,6 +278,7 @@ class ViewController: UIViewController {
         choice4Button.isHidden = true
     }
     
+    /// Helper method to show buttons
     func displayButtons() {
         choice1Button.isHidden = false
         choice2Button.isHidden = false
@@ -261,7 +286,10 @@ class ViewController: UIViewController {
         choice4Button.isHidden = false
     }
     
+    /// Instance method to check the quiz status
     func checkStatus() {
+        deactivateButtons()  // To prevent user from triggering any unwanted action
+        resultLabel.isHidden = true
         if quiz.questionsAsked == quiz.questionsPerRound {
             resultLabel.textColor = UIColor.white
             resultLabel.text = "Game Over!"
@@ -276,6 +304,5 @@ class ViewController: UIViewController {
             playAgainButton.isHidden = false
         }
     }
-    
 }
 

@@ -8,7 +8,7 @@
 
 struct Question {
     var question: String
-    var rightAnswer: (Int, String)
+    var rightAnswer: (Int, String)  // A tuple that stores the index and the answer string
     var choices: [String]
     
     init(question: String, rightAnswer: (Int, String), choices: [String]) {

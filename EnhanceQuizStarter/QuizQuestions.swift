@@ -6,10 +6,10 @@
 //  Copyright © 2018 Treehouse. All rights reserved.
 //
 
-// List of all Quiz Questions
-let question1 = Question(question: "Which of the actors on Friends unfortunately decides to whiten his teeth before going out on a first date with a girl he had a crush on for some time?",
-                         rightAnswer: (3, "Ross"),
-                         choices: ["Joey", "Chandler", "Gunther", "Ross"])
+// List of all F.R.I.E.N.D.S Trivia Quiz Questions
+let question1 = Question(question: "Which friend directed 'Since You've Been Gone'?",
+                         rightAnswer: (3, "David Schwimmer"),
+                         choices: ["Matt LeBlanc", "Matthew Perry", "Jennifer Aniston", "David Schwimmer"])
 let question2 = Question(question: "Who was Ross's second wife?",
                          rightAnswer: (1, "Emily"),
                          choices: ["Julie", "Emily", "Bonnie"])

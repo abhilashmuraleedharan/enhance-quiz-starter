@@ -8,8 +8,10 @@
 
 import UIKit
 
+// UIColor class extension to use hex color values easily
 extension UIColor {
-    
+    // Source:
+    // https://stackoverflow.com/questions/24263007/how-to-use-hex-colour-values
     convenience init(rgb: UInt) {
         self.init(rgb: rgb, alpha: 1.0)
     }

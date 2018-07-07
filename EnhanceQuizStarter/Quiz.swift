@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 import AudioToolbox
 
-let numberOfQuestionsPerRound = 3
+let numberOfQuestionsPerRound = 6
 
 class Quiz {
     var questions: [Question]
@@ -18,8 +18,8 @@ class Quiz {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion = 0
-    var askedQuestionIndexes: [Int]
-    var gotChampion = false
+    var askedQuestionIndexes: [Int]  // To keep track of indices of questions that'a already asked
+    var gotChampion = false          // To flag the user who got all answers right
     
     init(questions: [Question]) {
         self.questions = questions
@@ -29,9 +29,11 @@ class Quiz {
     /// Instance method to get a random question
     func getQuestion() -> Question {
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
+        // To prevent getting the same question
         while (askedQuestionIndexes.contains(indexOfSelectedQuestion)) {
             indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
         }
+        // Store the indices of questions already generated
         askedQuestionIndexes.append(indexOfSelectedQuestion)
         questionsAsked += 1
         return questions[indexOfSelectedQuestion]
