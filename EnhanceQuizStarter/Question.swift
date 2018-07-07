@@ -6,4 +6,18 @@
 //  Copyright © 2018 Treehouse. All rights reserved.
 //
 
-import Foundation
+struct Question {
+    var question: String
+    var rightAnswer: (Int, String)
+    var choices: [String]
+    
+    init(question: String, rightAnswer: (Int, String), choices: [String]) {
+        self.question = question
+        self.rightAnswer = rightAnswer
+        self.choices = choices
+    }
+}
+
+
+
+
