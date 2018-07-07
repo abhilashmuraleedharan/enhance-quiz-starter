@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 import AudioToolbox
 
-let numberOfQuestionsPerRound = 5
+let numberOfQuestionsPerRound = 3
 
 class Quiz {
     var questions: [Question]

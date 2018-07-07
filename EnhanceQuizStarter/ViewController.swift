@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var choice3Button: UIButton!
     @IBOutlet weak var choice4Button: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
+    @IBOutlet weak var progressLabel: UILabel!
     
     let quiz = Quiz(questions: questionsList)
     var gameTimer: Timer!
@@ -70,16 +71,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(patternImage: UIImage(named: "friends.png")!)
-        choice1Button.layer.borderWidth = 1.0
-        choice1Button.layer.borderColor = UIColor(white: 1.0, alpha: 0.7).cgColor
-        choice2Button.layer.borderWidth = 1.0
-        choice2Button.layer.borderColor = UIColor(white: 1.0, alpha: 0.7).cgColor
-        choice3Button.layer.borderWidth = 1.0
-        choice3Button.layer.borderColor = UIColor(white: 1.0, alpha: 0.7).cgColor
-        choice4Button.layer.borderWidth = 1.0
-        choice4Button.layer.borderColor = UIColor(white: 1.0, alpha: 0.7).cgColor
-        questionLabel.textColor = UIColor.black
-        timerLabel.textColor = UIColor.black
+        progressLabel.textColor = UIColor.brown
+        timerLabel.textColor = UIColor.brown
         quiz.playGameStartSound()
         displayQuestion()
     }
@@ -89,7 +82,7 @@ class ViewController: UIViewController {
         if status {
             quiz.correctQuestions += 1
             quiz.playCorrectAnswerSound()
-            resultLabel.textColor = UIColor.blue
+            resultLabel.textColor = UIColor.cyan
             resultLabel.text = "Correct!"
             resultLabel.isHidden = false
         } else {
@@ -108,19 +101,7 @@ class ViewController: UIViewController {
         }
         disableButtons()
         gameTimer.invalidate()
-        if quiz.questionsAsked == quiz.questionsPerRound {
-            resultLabel.textColor = UIColor.white
-            resultLabel.text = "Game Over!"
-            displayScore()
-            gameTimer.invalidate()
-            quiz.askedQuestionIndexes = []
-            quiz.questionsAsked = 0
-            quiz.correctQuestions = 0
-            quiz.gotChampion = false
-        } else {
-            playAgainButton.setTitle("Next Question", for: .normal)
-            playAgainButton.isHidden = false
-        }
+        checkStatus(after: 2)
     }
     
     func resetTimer() {
@@ -143,7 +124,9 @@ class ViewController: UIViewController {
             gameTimer.invalidate()
             quiz.playTimeOutSound()
             disableButtons()
+            resultLabel.textColor = UIColor.red
             resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
+            resultLabel.isHidden = false
             switch(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.0) {
             case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
             case 1: choice2Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -152,8 +135,7 @@ class ViewController: UIViewController {
             default:
             break;
             }
-            playAgainButton.setTitle("Next Question", for: .normal)
-            playAgainButton.isHidden = false
+            checkStatus(after: 2)
         }
     }
     
@@ -163,6 +145,10 @@ class ViewController: UIViewController {
         resultLabel.isHidden = true
         let quizQuestion = quiz.getQuestion()
         displayButtons()
+        progressLabel.text = "\(quiz.questionsAsked)/\(quiz.questionsPerRound)"
+        if progressLabel.isHidden {
+            progressLabel.isHidden = false
+        }
         questionLabel.text = quizQuestion.question
         choice1Button.setTitle(quizQuestion.choices[0], for: .normal)
         choice2Button.setTitle(quizQuestion.choices[1], for: .normal)
@@ -184,6 +170,7 @@ class ViewController: UIViewController {
         
         // Hide buttons and labels
         timerLabel.isHidden = true
+        progressLabel.isHidden = true
         hideButtons()
         
         // Display play again button
@@ -192,7 +179,7 @@ class ViewController: UIViewController {
         
         // Annouce result with appropriate sound
         if (quiz.correctQuestions == quiz.questionsPerRound) {
-            questionLabel.text = "Perfection! You got all right!"
+            questionLabel.text = "Perfection! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound)!"
             quiz.gotChampion = true
             quiz.playWinnerSound()
         } else if quiz.correctQuestions > quiz.questionsPerRound / 2 {
@@ -223,6 +210,18 @@ class ViewController: UIViewController {
         }
     }
     
+    func checkStatus(after seconds: Int) {
+        // Converts a delay in seconds to nanoseconds as signed 64 bit integer
+        let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
+        // Calculates a time value to execute the method given current time and delay
+        let dispatchTime = DispatchTime.now() + Double(delay) / Double(NSEC_PER_SEC)
+        
+        // Executes the nextRound method at the dispatch time on the main queue
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
+            self.checkStatus()
+        }
+    }
+    
     func enableButtons() {
         
         choice1Button.isUserInteractionEnabled = true
@@ -242,10 +241,10 @@ class ViewController: UIViewController {
     }
     
     func resetButtonColors() {
-        choice1Button.setBackgroundColor(UIColor(rgb: 0x0C7996), for: .normal)
-        choice2Button.setBackgroundColor(UIColor(rgb: 0x0C7996), for: .normal)
-        choice3Button.setBackgroundColor(UIColor(rgb: 0x0C7996), for: .normal)
-        choice4Button.setBackgroundColor(UIColor(rgb: 0x0C7996), for: .normal)
+        choice1Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
+        choice2Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
+        choice3Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
+        choice4Button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
     }
     
     func hideButtons() {
@@ -260,6 +259,22 @@ class ViewController: UIViewController {
         choice2Button.isHidden = false
         choice3Button.isHidden = false
         choice4Button.isHidden = false
+    }
+    
+    func checkStatus() {
+        if quiz.questionsAsked == quiz.questionsPerRound {
+            resultLabel.textColor = UIColor.white
+            resultLabel.text = "Game Over!"
+            displayScore()
+            gameTimer.invalidate()
+            quiz.askedQuestionIndexes = []
+            quiz.questionsAsked = 0
+            quiz.correctQuestions = 0
+            quiz.gotChampion = false
+        } else {
+            playAgainButton.setTitle("Next Question", for: .normal)
+            playAgainButton.isHidden = false
+        }
     }
     
 }
