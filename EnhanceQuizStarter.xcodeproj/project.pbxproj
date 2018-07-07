@@ -13,6 +13,18 @@
 		972A72B82056F06C0059EF4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 972A72B72056F06C0059EF4A /* Assets.xcassets */; };
 		972A72BB2056F06C0059EF4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 972A72B92056F06C0059EF4A /* LaunchScreen.storyboard */; };
 		972A72C32056F0E40059EF4A /* GameSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 972A72C22056F0E40059EF4A /* GameSound.wav */; };
+		CC5272B220F0D0A6005BD889 /* UIColor Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5272B120F0D0A6005BD889 /* UIColor Extension.swift */; };
+		CC5272B420F0F219005BD889 /* friends.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5272B320F0F219005BD889 /* friends.png */; };
+		CC74E33C20EA8A2100D86962 /* QuizQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74E33B20EA8A2100D86962 /* QuizQuestions.swift */; };
+		CCA5472320F06A7100A68D6A /* loser.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5472220F06A7000A68D6A /* loser.wav */; };
+		CCA5472520F06A8200A68D6A /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5472420F06A8200A68D6A /* correct.wav */; };
+		CCA5472720F06A8F00A68D6A /* wrong.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5472620F06A8F00A68D6A /* wrong.wav */; };
+		CCA5472920F06AAE00A68D6A /* time_over.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5472820F06AAE00A68D6A /* time_over.wav */; };
+		CCA5473120F09BD000A68D6A /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA5473020F09BD000A68D6A /* UIButtonExtension.swift */; };
+		CCA5473320F0AC7C00A68D6A /* geek.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5473220F0AC7C00A68D6A /* geek.wav */; };
+		CCA5473520F0AC8800A68D6A /* winner.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCA5473420F0AC8700A68D6A /* winner.wav */; };
+		CCB824F520EA78EF00068A4D /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB824F420EA78EF00068A4D /* Quiz.swift */; };
+		CCB824F920EA7B3100068A4D /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB824F820EA7B3100068A4D /* Question.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +36,18 @@
 		972A72BA2056F06C0059EF4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		972A72BC2056F06C0059EF4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		972A72C22056F0E40059EF4A /* GameSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GameSound.wav; sourceTree = "<group>"; };
+		CC5272B120F0D0A6005BD889 /* UIColor Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor Extension.swift"; sourceTree = "<group>"; };
+		CC5272B320F0F219005BD889 /* friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friends.png; sourceTree = "<group>"; };
+		CC74E33B20EA8A2100D86962 /* QuizQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestions.swift; sourceTree = "<group>"; };
+		CCA5472220F06A7000A68D6A /* loser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = loser.wav; sourceTree = "<group>"; };
+		CCA5472420F06A8200A68D6A /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
+		CCA5472620F06A8F00A68D6A /* wrong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wrong.wav; sourceTree = "<group>"; };
+		CCA5472820F06AAE00A68D6A /* time_over.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = time_over.wav; sourceTree = "<group>"; };
+		CCA5473020F09BD000A68D6A /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		CCA5473220F0AC7C00A68D6A /* geek.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = geek.wav; sourceTree = "<group>"; };
+		CCA5473420F0AC8700A68D6A /* winner.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = winner.wav; sourceTree = "<group>"; };
+		CCB824F420EA78EF00068A4D /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		CCB824F820EA7B3100068A4D /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +86,19 @@
 				972A72B72056F06C0059EF4A /* Assets.xcassets */,
 				972A72B92056F06C0059EF4A /* LaunchScreen.storyboard */,
 				972A72BC2056F06C0059EF4A /* Info.plist */,
+				CC5272B320F0F219005BD889 /* friends.png */,
 				972A72C22056F0E40059EF4A /* GameSound.wav */,
+				CCA5473220F0AC7C00A68D6A /* geek.wav */,
+				CCA5472220F06A7000A68D6A /* loser.wav */,
+				CCA5473420F0AC8700A68D6A /* winner.wav */,
+				CCA5472420F06A8200A68D6A /* correct.wav */,
+				CCA5472820F06AAE00A68D6A /* time_over.wav */,
+				CCA5472620F06A8F00A68D6A /* wrong.wav */,
+				CCB824F420EA78EF00068A4D /* Quiz.swift */,
+				CCB824F820EA7B3100068A4D /* Question.swift */,
+				CC74E33B20EA8A2100D86962 /* QuizQuestions.swift */,
+				CCA5473020F09BD000A68D6A /* UIButtonExtension.swift */,
+				CC5272B120F0D0A6005BD889 /* UIColor Extension.swift */,
 			);
 			path = EnhanceQuizStarter;
 			sourceTree = "<group>";
@@ -126,10 +162,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCA5473320F0AC7C00A68D6A /* geek.wav in Resources */,
 				972A72C32056F0E40059EF4A /* GameSound.wav in Resources */,
+				CCA5473520F0AC8800A68D6A /* winner.wav in Resources */,
 				972A72BB2056F06C0059EF4A /* LaunchScreen.storyboard in Resources */,
+				CCA5472720F06A8F00A68D6A /* wrong.wav in Resources */,
 				972A72B82056F06C0059EF4A /* Assets.xcassets in Resources */,
+				CCA5472920F06AAE00A68D6A /* time_over.wav in Resources */,
+				CCA5472520F06A8200A68D6A /* correct.wav in Resources */,
+				CCA5472320F06A7100A68D6A /* loser.wav in Resources */,
 				972A72B62056F06C0059EF4A /* Main.storyboard in Resources */,
+				CC5272B420F0F219005BD889 /* friends.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,8 +183,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCB824F920EA7B3100068A4D /* Question.swift in Sources */,
 				972A72B32056F06C0059EF4A /* ViewController.swift in Sources */,
+				CC5272B220F0D0A6005BD889 /* UIColor Extension.swift in Sources */,
+				CCB824F520EA78EF00068A4D /* Quiz.swift in Sources */,
+				CC74E33C20EA8A2100D86962 /* QuizQuestions.swift in Sources */,
 				972A72B12056F06C0059EF4A /* AppDelegate.swift in Sources */,
+				CCA5473120F09BD000A68D6A /* UIButtonExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
