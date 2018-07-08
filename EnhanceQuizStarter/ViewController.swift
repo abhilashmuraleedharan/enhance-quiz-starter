@@ -193,10 +193,10 @@ class ViewController: UIViewController {
             quiz.gotChampion = true
             quiz.playWinnerSound()
         } else if quiz.correctQuestions > quiz.questionsPerRound / 2 {
-            questionLabel.text = "Way to go! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound) right!"
+            questionLabel.text = "Awesome! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound) right!"
             quiz.playWinnerSound()
         } else {
-            questionLabel.text = "You got only \(quiz.correctQuestions) out of \(quiz.questionsPerRound) correct!"
+            questionLabel.text = "You got only \(quiz.correctQuestions) out of \(quiz.questionsPerRound) correct! Try Again?"
             quiz.playLoserSound()
         }
     }
