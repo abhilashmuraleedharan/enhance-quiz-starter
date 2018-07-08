@@ -36,33 +36,32 @@ class ViewController: UIViewController {
     // MARK: - Actions
     @IBAction func choice1(_ sender: UIButton) {
         // Set background to a different color to indicate the option chosen
-        choice1Button.setBackgroundColor(UIColor.orange, for: .normal)
+        choice1Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
         // Evaluate the chosen answer
         isCorrect = quiz.evaluate(answer: (choice1Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        // Add a 1 second delay before displaying the result
-        processAnswer(after: 1, ofStatus: isCorrect)
+        announceResult(status: isCorrect)
     }
     
     @IBAction func choice2(_ sender: UIButton) {
-        choice2Button.setBackgroundColor(UIColor.orange, for: .normal)
+        choice2Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice2Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        processAnswer(after: 1, ofStatus: isCorrect)
+        announceResult(status: isCorrect)
     }
     
     @IBAction func choice3(_ sender: UIButton) {
-        choice3Button.setBackgroundColor(UIColor.orange, for: .normal)
+        choice3Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice3Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        processAnswer(after: 1, ofStatus: isCorrect)
+        announceResult(status: isCorrect)
     }
     
     @IBAction func choice4(_ sender: UIButton) {
-        choice4Button.setBackgroundColor(UIColor.orange, for: .normal)
+        choice4Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
         isCorrect = quiz.evaluate(answer: (choice4Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        processAnswer(after: 1, ofStatus: isCorrect)
+        announceResult(status: isCorrect)
     }
     
     @IBAction func playAgain(_ sender: UIButton) {
@@ -208,19 +207,6 @@ class ViewController: UIViewController {
             seconds_left = timer_value
             activateButtons()
             displayQuestion()
-    }
-
-    /// Helper method to inrtouduce some delay before announcing result of a question
-    func processAnswer(after seconds: Int, ofStatus status: Bool) {
-        // Converts a delay in seconds to nanoseconds as signed 64 bit integer
-        let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
-        // Calculates a time value to execute the method given current time and delay
-        let dispatchTime = DispatchTime.now() + Double(delay) / Double(NSEC_PER_SEC)
-        
-        // Executes the nextRound method at the dispatch time on the main queue
-        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
-            self.announceResult(status: status)
-        }
     }
     
     /// Helper method to introduce some delay before checking the quiz status
