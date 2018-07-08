@@ -107,6 +107,7 @@ class ViewController: UIViewController {
             break;
         }
         gameTimer.invalidate()
+        deactivateButtons()  // To prevent user from triggering any unwanted action
         checkStatus(after: 2)  // Check quiz progress and score status after 2 seconds
     }
     
@@ -144,6 +145,7 @@ class ViewController: UIViewController {
             default:
             break;
             }
+            deactivateButtons()  // To prevent user from triggering any unwanted action
             checkStatus(after: 2) // Check quiz progress and score status after 2 seconds
         }
     }
@@ -254,7 +256,10 @@ class ViewController: UIViewController {
         choice2Button.isUserInteractionEnabled = false
         choice3Button.isUserInteractionEnabled = false
         choice4Button.isUserInteractionEnabled = false
-        // Set font and tint color of buttons to reflect the deactivated state
+    }
+    
+    /// Helper method to dim buttons to indicate 'deactivated' status
+    func dimButtons() {
         choice1Button.tintColor = UIColor.lightGray
         choice2Button.tintColor = UIColor.lightGray
         choice3Button.tintColor = UIColor.lightGray
@@ -288,7 +293,7 @@ class ViewController: UIViewController {
     
     /// Instance method to check the quiz status
     func checkStatus() {
-        deactivateButtons()  // To prevent user from triggering any unwanted action
+        dimButtons()
         resultLabel.isHidden = true
         if quiz.questionsAsked == quiz.questionsPerRound {
             resultLabel.textColor = UIColor.white
