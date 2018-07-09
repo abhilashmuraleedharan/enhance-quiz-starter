@@ -183,6 +183,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fJb-lr-Hz9" secondAttribute="trailing" constant="40" id="uPA-52-22V"/>
                             <constraint firstItem="MVS-hD-G3i" firstAttribute="top" secondItem="qYh-2d-v8I" secondAttribute="bottom" constant="18" id="x4P-2f-zGC"/>
                             <constraint firstItem="fJb-lr-Hz9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="yDE-0b-ChY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eic-Nx-foS" secondAttribute="bottom" constant="125" id="yom-af-tks"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
@@ -195,6 +196,7 @@
                                 <exclude reference="tfi-vL-vfv"/>
                                 <exclude reference="WYY-FT-fY0"/>
                                 <exclude reference="Gc4-mT-OhY"/>
+                                <exclude reference="I67-Tg-L4S"/>
                             </mask>
                         </variation>
                     </view>

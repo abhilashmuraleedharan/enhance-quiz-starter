@@ -11,9 +11,11 @@ import GameKit
 import AudioToolbox
 
 let numberOfQuestionsPerRound = 6
+let quizMaster = QuizQuestions()
+let questionSet = quizMaster.setQuestions()
 
 class Quiz {
-    var questions: [Question]
+    let questions = questionSet
     let questionsPerRound = numberOfQuestionsPerRound
     var questionsAsked = 0
     var correctQuestions = 0
@@ -21,8 +23,7 @@ class Quiz {
     var askedQuestionIndexes: [Int]  // To keep track of indices of questions that'a already asked
     var gotChampion = false          // To flag the user who got all answers right
     
-    init(questions: [Question]) {
-        self.questions = questions
+    init() {
         askedQuestionIndexes = []
     }
     

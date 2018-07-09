@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressLabel: UILabel!
     
     // Declaring necessary stored properties
-    let quiz = Quiz(questions: questionsList)
+    let quiz = Quiz()
     var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
     var seconds_left = timer_value
