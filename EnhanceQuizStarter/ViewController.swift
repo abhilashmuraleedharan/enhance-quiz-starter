@@ -23,7 +23,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var choice1Button: UIButton!
     @IBOutlet weak var choice2Button: UIButton!
     @IBOutlet weak var choice3Button: UIButton!
-    @IBOutlet weak var choice4Button: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var progressLabel: UILabel!
     
@@ -32,6 +31,7 @@ class ViewController: UIViewController {
     var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
     var seconds_left = timer_value
+    var choice4Button: UIButton!
     
     // MARK: - Actions
     @IBAction func choice1(_ sender: UIButton) {
@@ -57,13 +57,14 @@ class ViewController: UIViewController {
         announceResult(status: isCorrect)
     }
     
-    @IBAction func choice4(_ sender: UIButton) {
-        choice4Button.setBackgroundColor(UIColor.red, for: .normal)
+    // choice4 button action method
+    @objc func choice4(_ sender: UIButton) {
+        sender.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
-        isCorrect = quiz.evaluate(answer: (choice4Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
+        isCorrect = quiz.evaluate(answer: (sender.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
         announceResult(status: isCorrect)
     }
-    
+ 
     @IBAction func playAgain(_ sender: UIButton) {
         if (playAgainButton.titleLabel?.text)! == "Play Again" {
             quiz.playGameStartSound()
@@ -71,15 +72,30 @@ class ViewController: UIViewController {
         nextRound()
     }
     
+    func makeButtonWithText(text:String) -> UIButton {
+        let choiceButton = UIButton(type: UIButtonType.system)
+        //Set a frame for the button.
+        choiceButton.frame = CGRect(x: 40, y: 422, width: 334, height: 50)
+        choiceButton.translatesAutoresizingMaskIntoConstraints = false
+        choiceButton.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
+        //State dependent properties title and title color
+        choiceButton.setTitle(text, for: .normal)
+        choiceButton.setTitleColor(UIColor.white, for: .normal)
+        choiceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        choiceButton.addTarget(self, action: #selector(self.choice4), for: .touchUpInside)
+        return choiceButton
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(patternImage: UIImage(named: "friends.png")!)
         progressLabel.textColor = UIColor.brown
         timerLabel.textColor = UIColor.brown
+        choice4Button = makeButtonWithText(text: "Choice 4")
         quiz.playGameStartSound()
         displayQuestion()
     }
-    
+
     /// Instance method to display the status of an answer to a question
     func announceResult(status: Bool) {
         // Invalidate the timer
@@ -164,9 +180,10 @@ class ViewController: UIViewController {
         choice3Button.setTitle(quizQuestion.choices[2], for: .normal)
         // Show option4 button only if 4 options are present
         if (quizQuestion.choices.count == 3) {
-            choice4Button.isHidden = true
+            removeChoice4Button()
         } else {
             choice4Button.setTitle(quizQuestion.choices[3], for: .normal)
+            accomodateChoice4Button()
         }
         playAgainButton.isHidden = true
         resetTimer()
@@ -229,10 +246,10 @@ class ViewController: UIViewController {
         choice3Button.isUserInteractionEnabled = true
         choice4Button.isUserInteractionEnabled = true
         // Set font and tint color of buttons to reflect the re-activated state
-        choice1Button.tintColor = UIColor.white
-        choice2Button.tintColor = UIColor.white
-        choice3Button.tintColor = UIColor.white
-        choice4Button.tintColor = UIColor.white
+        choice1Button.setTitleColor(UIColor.white, for: .normal)
+        choice2Button.setTitleColor(UIColor.white, for: .normal)
+        choice3Button.setTitleColor(UIColor.white, for: .normal)
+        choice4Button.setTitleColor(UIColor.white, for: .normal)
         resetButtonColors()
     }
     
@@ -246,10 +263,10 @@ class ViewController: UIViewController {
     
     /// Helper method to dim buttons to indicate 'deactivated' status
     func dimButtons() {
-        choice1Button.tintColor = UIColor.lightGray
-        choice2Button.tintColor = UIColor.lightGray
-        choice3Button.tintColor = UIColor.lightGray
-        choice4Button.tintColor = UIColor.lightGray
+        choice1Button.setTitleColor(UIColor.lightGray, for: .normal)
+        choice2Button.setTitleColor(UIColor.lightGray, for: .normal)
+        choice3Button.setTitleColor(UIColor.lightGray, for: .normal)
+        choice4Button.setTitleColor(UIColor.lightGray, for: .normal)
         resetButtonColors()
     }
     
@@ -294,6 +311,35 @@ class ViewController: UIViewController {
             playAgainButton.setTitle("Next Question", for: .normal)
             playAgainButton.isHidden = false
         }
+    }
+    
+    func adjustPositions(ofButtons buttons: Int) {
+        for constraint in self.view.constraints {
+            if constraint.identifier == "flexiConstraint" {
+                if buttons == 3 {
+                    constraint.constant = 52
+                } else if buttons == 4 {
+                    constraint.constant = 18
+                }
+            }
+        }
+        view.layoutIfNeeded()
+    }
+    
+    func removeChoice4Button() {
+        choice4Button.removeFromSuperview()
+        adjustPositions(ofButtons: 3)
+    }
+    
+    func accomodateChoice4Button() {
+        view.addSubview(choice4Button)
+        view.addConstraints([
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: choice3Button, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 18),
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 40),
+            NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: choice4Button, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 40),
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 50)
+            ])
+        adjustPositions(ofButtons: 4)
     }
 }
 
