@@ -6,7 +6,7 @@
 //  Copyright © 2018 Treehouse. All rights reserved.
 //
 //  Refactored existing code using OOP principles and MVC design pattern
-//  and added few more features as per project requirement.
+//  and enhanced the quiz app adhering to project requirements.
 //  By Abhilash Muraleedharan on 07/07/18.
 //
 
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
     var seconds_left = timer_value
-    var choice4Button: UIButton!
+    var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
     
     // MARK: - Actions
     @IBAction func choice1(_ sender: UIButton) {
@@ -57,14 +57,6 @@ class ViewController: UIViewController {
         announceResult(status: isCorrect)
     }
     
-    // choice4 button action method
-    @objc func choice4(_ sender: UIButton) {
-        sender.setBackgroundColor(UIColor.red, for: .normal)
-        var isCorrect: Bool
-        isCorrect = quiz.evaluate(answer: (sender.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        announceResult(status: isCorrect)
-    }
- 
     @IBAction func playAgain(_ sender: UIButton) {
         if (playAgainButton.titleLabel?.text)! == "Play Again" {
             quiz.playGameStartSound()
@@ -72,6 +64,15 @@ class ViewController: UIViewController {
         nextRound()
     }
     
+    // choice4 button action method
+    @objc func choice4(_ sender: UIButton) {
+        sender.setBackgroundColor(UIColor.red, for: .normal)
+        var isCorrect: Bool
+        isCorrect = quiz.evaluate(answer: (sender.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
+        announceResult(status: isCorrect)
+    }
+    
+    // Helper method to make a UIButton programmatically
     func makeButtonWithText(text:String) -> UIButton {
         let choiceButton = UIButton(type: UIButtonType.system)
         //Set a frame for the button.
@@ -245,7 +246,7 @@ class ViewController: UIViewController {
         choice2Button.isUserInteractionEnabled = true
         choice3Button.isUserInteractionEnabled = true
         choice4Button.isUserInteractionEnabled = true
-        // Set font and tint color of buttons to reflect the re-activated state
+        // Set font and title color of buttons to reflect the re-activated state
         choice1Button.setTitleColor(UIColor.white, for: .normal)
         choice2Button.setTitleColor(UIColor.white, for: .normal)
         choice3Button.setTitleColor(UIColor.white, for: .normal)
@@ -313,6 +314,7 @@ class ViewController: UIViewController {
         }
     }
     
+    /// Helper method to re-space the position of buttons
     func adjustPositions(ofButtons buttons: Int) {
         for constraint in self.view.constraints {
             if constraint.identifier == "flexiConstraint" {
@@ -326,11 +328,13 @@ class ViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
+    /// Helper method to remove choice4Button and respace remaining choice buttons
     func removeChoice4Button() {
         choice4Button.removeFromSuperview()
         adjustPositions(ofButtons: 3)
     }
     
+    /// Helper method to respace the 3 choice buttons to add and accomodate a fourth button
     func accomodateChoice4Button() {
         view.addSubview(choice4Button)
         view.addConstraints([

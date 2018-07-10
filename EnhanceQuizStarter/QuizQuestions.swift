@@ -6,7 +6,7 @@
 //  Copyright © 2018 Treehouse. All rights reserved.
 //
 
-// List of all F.R.I.E.N.D.S Trivia Quiz Questions
+// Data Model containing the list of all F.R.I.E.N.D.S Trivia Quiz Questions
 struct QuizQuestions {
     let question1 = Question(question: "Which friend directed 'Since You've Been Gone'?",
                          rightAnswer: (3, "David Schwimmer"),
@@ -39,6 +39,7 @@ struct QuizQuestions {
                           rightAnswer: (1, "Paris"),
                           choices: ["New York", "Paris", "Sydney", "London"])
     
+    /// Instance method to return an array of quiz questions
     func setQuestions() -> [Question] {
         return [question1,question2,question3,question4,question5,question6,question7,question8,question9,question10]
     }

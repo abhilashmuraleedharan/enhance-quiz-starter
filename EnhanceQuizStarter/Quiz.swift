@@ -20,7 +20,7 @@ class Quiz {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion = 0
-    var askedQuestionIndexes: [Int]  // To keep track of indices of questions that'a already asked
+    var askedQuestionIndexes: [Int]  // To keep track of indices of questions that's already asked
     var gotChampion = false          // To flag the user who got all answers right
     
     init() {
