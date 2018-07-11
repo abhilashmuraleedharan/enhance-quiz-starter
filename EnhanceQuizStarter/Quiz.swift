@@ -11,7 +11,7 @@ import GameKit
 import AudioToolbox
 
 let numberOfQuestionsPerRound = 6
-let quizMaster = QuizQuestions()
+let quizMaster = QuizQuestion()
 let questionSet = quizMaster.setQuestions()
 
 class Quiz {
