@@ -12,7 +12,7 @@
 
 import UIKit
 
-let timer_value = 15
+let timerValue = 15
 
 class ViewController: UIViewController {
     
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     let quiz = Quiz()
     var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
-    var seconds_left = timer_value
+    var secondsLeft = timerValue
     var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
     
     // MARK: - Actions
@@ -129,13 +129,13 @@ class ViewController: UIViewController {
     
     /// Helper method to reset the timer value
     func resetTimer() {
-        seconds_left = timer_value
+        secondsLeft = timerValue
         timerRunning = false
     }
     
     /// Helper method to start a timer
     func startTimer() {
-        timerLabel.text = "\(seconds_left)"
+        timerLabel.text = "\(secondsLeft)"
         if !timerRunning {
             gameTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeOutHandler), userInfo: nil, repeats: true)
             timerRunning = true
@@ -144,9 +144,9 @@ class ViewController: UIViewController {
     
     /// Timer Event Handler
     @objc func timeOutHandler() {
-        seconds_left -= 1
-        timerLabel.text = "\(seconds_left)"
-        if (seconds_left == 0) {
+        secondsLeft -= 1
+        timerLabel.text = "\(secondsLeft)"
+        if (secondsLeft == 0) {
             gameTimer.invalidate()
             quiz.playTimeOutSound()
             resultLabel.textColor = UIColor.yellow
@@ -222,7 +222,7 @@ class ViewController: UIViewController {
     
     /// Helper method that gives next round of questions
     func nextRound() {
-            seconds_left = timer_value
+            secondsLeft = timerValue
             activateButtons()
             displayQuestion()
     }
