@@ -12,8 +12,6 @@
 
 import UIKit
 
-let timerValue = 15
-
 class ViewController: UIViewController {
     
     // MARK: - Outlets
@@ -30,46 +28,56 @@ class ViewController: UIViewController {
     let quiz = Quiz()
     var gameTimer: Timer!  // create a property of the type Timer!
     var timerRunning: Bool = false
-    var secondsLeft = timerValue
+    var secondsLeft = 15
     var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
     
     // MARK: - Actions
-    @IBAction func choice1(_ sender: UIButton) {
+    @IBAction func choice1ButtonTapped(_ sender: UIButton) {
         // Set background to a different color to indicate the option chosen
         choice1Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
         // Evaluate the chosen answer
-        isCorrect = quiz.evaluate(answer: (choice1Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        announceResult(status: isCorrect)
+        if let chosenAnswer = choice1Button.titleLabel?.text {
+            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status: isCorrect)
+        }
     }
     
-    @IBAction func choice2(_ sender: UIButton) {
+    @IBAction func choice2ButtonTapped(_ sender: UIButton) {
         choice2Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
-        isCorrect = quiz.evaluate(answer: (choice2Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        announceResult(status: isCorrect)
+        if let chosenAnswer = choice2Button.titleLabel?.text {
+            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status: isCorrect)
+        }
     }
     
-    @IBAction func choice3(_ sender: UIButton) {
+    @IBAction func choice3ButtonTapped(_ sender: UIButton) {
         choice3Button.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
-        isCorrect = quiz.evaluate(answer: (choice3Button.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        announceResult(status: isCorrect)
+        if let chosenAnswer = choice3Button.titleLabel?.text {
+            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status: isCorrect)
+        }
     }
     
     @IBAction func playAgain(_ sender: UIButton) {
-        if (playAgainButton.titleLabel?.text)! == "Play Again" {
-            quiz.playGameStartSound()
+        if let buttonTitle = playAgainButton.titleLabel?.text {
+            if buttonTitle == "Play Again" {
+                quiz.quizSound.playGameStartSound()
+            }
         }
         nextRound()
     }
     
     // choice4 button action method
-    @objc func choice4(_ sender: UIButton) {
+    @objc func choice4ButtonTapped(_ sender: UIButton) {
         sender.setBackgroundColor(UIColor.red, for: .normal)
         var isCorrect: Bool
-        isCorrect = quiz.evaluate(answer: (sender.titleLabel?.text)!, ofQuestion: quiz.indexOfSelectedQuestion)
-        announceResult(status: isCorrect)
+        if let chosenAnswer = sender.titleLabel?.text {
+            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status: isCorrect)
+        }
     }
     
     // Helper method to make a UIButton programmatically
@@ -83,17 +91,19 @@ class ViewController: UIViewController {
         choiceButton.setTitle(text, for: .normal)
         choiceButton.setTitleColor(UIColor.white, for: .normal)
         choiceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        choiceButton.addTarget(self, action: #selector(self.choice4), for: .touchUpInside)
+        choiceButton.addTarget(self, action: #selector(self.choice4ButtonTapped), for: .touchUpInside)
         return choiceButton
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "friends.png")!)
+        if let image = UIImage(named: "friends.png") {
+            view.backgroundColor = UIColor(patternImage: image)
+        }
         progressLabel.textColor = UIColor.brown
         timerLabel.textColor = UIColor.brown
         choice4Button = makeButtonWithText(text: "Choice 4")
-        quiz.playGameStartSound()
+        quiz.quizSound.playGameStartSound()
         displayQuestion()
     }
 
@@ -103,12 +113,12 @@ class ViewController: UIViewController {
         gameTimer.invalidate()
         if status {
             quiz.correctQuestions += 1
-            quiz.playCorrectAnswerSound()
+            quiz.quizSound.playCorrectAnswerSound()
             resultLabel.textColor = UIColor.cyan
             resultLabel.text = "Correct!"
             resultLabel.isHidden = false
         } else {
-            quiz.playWrongAnswerSound()
+            quiz.quizSound.playWrongAnswerSound()
             resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
             resultLabel.isHidden = false
@@ -129,7 +139,7 @@ class ViewController: UIViewController {
     
     /// Helper method to reset the timer value
     func resetTimer() {
-        secondsLeft = timerValue
+        secondsLeft = 15
         timerRunning = false
     }
     
@@ -148,7 +158,7 @@ class ViewController: UIViewController {
         timerLabel.text = "\(secondsLeft)"
         if (secondsLeft == 0) {
             gameTimer.invalidate()
-            quiz.playTimeOutSound()
+            quiz.quizSound.playTimeOutSound()
             resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
             resultLabel.isHidden = false
@@ -209,20 +219,19 @@ class ViewController: UIViewController {
         // Annouce result with appropriate sound
         if (quiz.correctQuestions == quiz.questionsPerRound) {
             questionLabel.text = "Perfection! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound)!"
-            quiz.gotChampion = true
-            quiz.playWinnerSound()
+            quiz.quizSound.playWinnerSound(gotChampion: true)
         } else if quiz.correctQuestions > quiz.questionsPerRound / 2 {
             questionLabel.text = "Awesome! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound) right!"
-            quiz.playWinnerSound()
+            quiz.quizSound.playWinnerSound(gotChampion: false)
         } else {
             questionLabel.text = "You got only \(quiz.correctQuestions) out of \(quiz.questionsPerRound) correct! Try Again?"
-            quiz.playLoserSound()
+            quiz.quizSound.playLoserSound()
         }
     }
     
     /// Helper method that gives next round of questions
     func nextRound() {
-            secondsLeft = timerValue
+            secondsLeft = 15
             activateButtons()
             displayQuestion()
     }
@@ -307,7 +316,6 @@ class ViewController: UIViewController {
             quiz.askedQuestionIndexes = []
             quiz.questionsAsked = 0
             quiz.correctQuestions = 0
-            quiz.gotChampion = false
         } else {
             playAgainButton.setTitle("Next Question", for: .normal)
             playAgainButton.isHidden = false

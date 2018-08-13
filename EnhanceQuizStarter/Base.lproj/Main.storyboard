@@ -38,7 +38,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="choice1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="me2-Ek-VyA"/>
+                                    <action selector="choice1ButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k6N-Ey-gMJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYh-2d-v8I">
@@ -54,7 +54,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="choice2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fhd-EL-uLm"/>
+                                    <action selector="choice2ButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fyC-xg-sld"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVS-hD-G3i">
@@ -78,7 +78,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="choice3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W9p-Z1-AvD"/>
+                                    <action selector="choice3ButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cCz-hB-yJl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eic-Nx-foS">
