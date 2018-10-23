@@ -38,6 +38,6 @@ class Quiz {
     
     /// Instance method to evaluate whether an answer is right or wrong
     func evaluate(answer: String, ofQuestion index: Int) -> Bool {
-        return answer == questions[index].rightAnswer.1 ? true : false
+        return answer == questions[index].rightAnswer.value ? true : false
     }
 }

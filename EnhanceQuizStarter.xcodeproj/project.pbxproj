@@ -82,6 +82,7 @@
 		972A72AF2056F06C0059EF4A /* EnhanceQuizStarter */ = {
 			isa = PBXGroup;
 			children = (
+				CCEFDA71217F097A00D00719 /* GameSounds */,
 				972A72B02056F06C0059EF4A /* AppDelegate.swift */,
 				972A72B22056F06C0059EF4A /* ViewController.swift */,
 				972A72B42056F06C0059EF4A /* Main.storyboard */,
@@ -89,13 +90,6 @@
 				972A72B92056F06C0059EF4A /* LaunchScreen.storyboard */,
 				972A72BC2056F06C0059EF4A /* Info.plist */,
 				CC5272B320F0F219005BD889 /* friends.png */,
-				972A72C22056F0E40059EF4A /* GameSound.wav */,
-				CCA5473220F0AC7C00A68D6A /* geek.wav */,
-				CCA5472220F06A7000A68D6A /* loser.wav */,
-				CCA5473420F0AC8700A68D6A /* winner.wav */,
-				CCA5472420F06A8200A68D6A /* correct.wav */,
-				CCA5472820F06AAE00A68D6A /* time_over.wav */,
-				CCA5472620F06A8F00A68D6A /* wrong.wav */,
 				CCB824F420EA78EF00068A4D /* Quiz.swift */,
 				CCB824F820EA7B3100068A4D /* Question.swift */,
 				CC74E33B20EA8A2100D86962 /* QuizQuestion.swift */,
@@ -104,6 +98,20 @@
 				CCCDE17A21214FEC00CC9CC4 /* Sound.swift */,
 			);
 			path = EnhanceQuizStarter;
+			sourceTree = "<group>";
+		};
+		CCEFDA71217F097A00D00719 /* GameSounds */ = {
+			isa = PBXGroup;
+			children = (
+				972A72C22056F0E40059EF4A /* GameSound.wav */,
+				CCA5473220F0AC7C00A68D6A /* geek.wav */,
+				CCA5472220F06A7000A68D6A /* loser.wav */,
+				CCA5473420F0AC8700A68D6A /* winner.wav */,
+				CCA5472420F06A8200A68D6A /* correct.wav */,
+				CCA5472820F06AAE00A68D6A /* time_over.wav */,
+				CCA5472620F06A8F00A68D6A /* wrong.wav */,
+			);
+			path = GameSounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,8 +345,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VVFLQ8BLF2;
 				INFOPLIST_FILE = EnhanceQuizStarter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lochinvarinternetservices.com;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhilashapps.quiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -352,8 +361,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VVFLQ8BLF2;
 				INFOPLIST_FILE = EnhanceQuizStarter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.lochinvarinternetservices.com;
+				PRODUCT_BUNDLE_IDENTIFIER = com.abhilashapps.quiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

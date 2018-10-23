@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     // Declaring necessary stored properties
     let quiz = Quiz()
     var gameTimer: Timer!  // create a property of the type Timer!
-    var timerRunning: Bool = false
+    var timerRunning = false
     var secondsLeft = 15
     var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
     
@@ -35,28 +35,28 @@ class ViewController: UIViewController {
     @IBAction func choice1ButtonTapped(_ sender: UIButton) {
         // Set background to a different color to indicate the option chosen
         choice1Button.setBackgroundColor(UIColor.red, for: .normal)
-        var isCorrect: Bool
+        
         // Evaluate the chosen answer
         if let chosenAnswer = choice1Button.titleLabel?.text {
-            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
             announceResult(status: isCorrect)
         }
     }
     
     @IBAction func choice2ButtonTapped(_ sender: UIButton) {
         choice2Button.setBackgroundColor(UIColor.red, for: .normal)
-        var isCorrect: Bool
+        
         if let chosenAnswer = choice2Button.titleLabel?.text {
-            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
             announceResult(status: isCorrect)
         }
     }
     
     @IBAction func choice3ButtonTapped(_ sender: UIButton) {
         choice3Button.setBackgroundColor(UIColor.red, for: .normal)
-        var isCorrect: Bool
+        
         if let chosenAnswer = choice3Button.titleLabel?.text {
-            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
             announceResult(status: isCorrect)
         }
     }
@@ -73,9 +73,9 @@ class ViewController: UIViewController {
     // choice4 button action method
     @objc func choice4ButtonTapped(_ sender: UIButton) {
         sender.setBackgroundColor(UIColor.red, for: .normal)
-        var isCorrect: Bool
+        
         if let chosenAnswer = sender.titleLabel?.text {
-            isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
             announceResult(status: isCorrect)
         }
     }
@@ -120,11 +120,11 @@ class ViewController: UIViewController {
         } else {
             quiz.quizSound.playWrongAnswerSound()
             resultLabel.textColor = UIColor.yellow
-            resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
+            resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.value)"
             resultLabel.isHidden = false
         }
         // To highlight the right answer
-        switch (quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.0) {
+        switch (quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.index) {
         case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
         case 1: choice2Button.setBackgroundColor(UIColor.green, for: .normal)
         case 2: choice3Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -160,10 +160,10 @@ class ViewController: UIViewController {
             gameTimer.invalidate()
             quiz.quizSound.playTimeOutSound()
             resultLabel.textColor = UIColor.yellow
-            resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.1)"
+            resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.value)"
             resultLabel.isHidden = false
             // Highlight the right answer
-            switch(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.0) {
+            switch(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.index) {
             case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
             case 1: choice2Button.setBackgroundColor(UIColor.green, for: .normal)
             case 2: choice3Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -354,4 +354,3 @@ class ViewController: UIViewController {
         adjustPositions(ofButtons: 4)
     }
 }
-
