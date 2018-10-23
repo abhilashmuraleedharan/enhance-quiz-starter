@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     
     // Helper method to make a UIButton programmatically
     func makeButtonWithText(text:String) -> UIButton {
-        let choiceButton = UIButton(type: UIButtonType.system)
+        let choiceButton = UIButton(type: UIButton.ButtonType.system)
         //Set a frame for the button.
         choiceButton.frame = CGRect(x: 40, y: 422, width: 334, height: 50)
         choiceButton.translatesAutoresizingMaskIntoConstraints = false
@@ -346,10 +346,10 @@ class ViewController: UIViewController {
     func accomodateChoice4Button() {
         view.addSubview(choice4Button)
         view.addConstraints([
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: choice3Button, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 18),
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 40),
-            NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: choice4Button, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 40),
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 50)
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: choice3Button, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 18),
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 40),
+            NSLayoutConstraint(item: self.view, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: choice4Button, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1.0, constant: 40),
+            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: 50)
             ])
         adjustPositions(ofButtons: 4)
     }
