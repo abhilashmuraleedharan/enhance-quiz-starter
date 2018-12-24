@@ -17,10 +17,7 @@ struct Quiz {
     var correctQuestions = 0
     var indexOfSelectedQuestion = 0
     var askedQuestionsIndices = [Int]()  // To keep track of indices of questions that are already asked
-    var lightningRoundTimer: Timer!
-    var isTimerRunning = false
-    var lightningRoundDuration = 15
-    
+
     init() {
         questions = quizMaster.setQuestions()
     }

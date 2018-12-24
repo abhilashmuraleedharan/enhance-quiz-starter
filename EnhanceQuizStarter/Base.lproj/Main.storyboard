@@ -14,17 +14,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="QuizViewController" customModule="EnhanceQuizStarter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCF-BL-dDa">
-                                <rect key="frame" x="30" y="78" width="540" height="20.5"/>
+                                <rect key="frame" x="30" y="78" width="315" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-ih-qRR">
-                                <rect key="frame" x="40" y="218" width="520" height="50"/>
+                                <rect key="frame" x="40" y="218" width="295" height="50"/>
                                 <color key="backgroundColor" red="0.4823529411764706" green="0.49019607843137253" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="BlV-PX-7uU"/>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYh-2d-v8I">
-                                <rect key="frame" x="40" y="286" width="520" height="50"/>
+                                <rect key="frame" x="40" y="286" width="295" height="50"/>
                                 <color key="backgroundColor" red="0.4823529411764706" green="0.49019607843137253" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="zv4-8e-Neh"/>
@@ -56,7 +56,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVS-hD-G3i">
-                                <rect key="frame" x="40" y="354" width="520" height="50"/>
+                                <rect key="frame" x="40" y="354" width="295" height="50"/>
                                 <color key="backgroundColor" red="0.4823529411764706" green="0.49019607843137253" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0rv-90-XNk"/>
@@ -80,7 +80,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eic-Nx-foS">
-                                <rect key="frame" x="40" y="425" width="520" height="50"/>
+                                <rect key="frame" x="40" y="492" width="295" height="50"/>
                                 <color key="backgroundColor" red="0.3091019951496789" green="0.18603901185632662" blue="0.68736356099792739" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1Sg-xH-oUz"/>
@@ -93,7 +93,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjA-4Q-Kds">
-                                <rect key="frame" x="541.5" y="45" width="18.5" height="35"/>
+                                <rect key="frame" x="316.5" y="45" width="18.5" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="p1z-Hv-seA"/>
                                 </constraints>
@@ -102,7 +102,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFu-1w-AxZ">
-                                <rect key="frame" x="20" y="158" width="560" height="40"/>
+                                <rect key="frame" x="20" y="158" width="335" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pV8-gX-DIR"/>
                                 </constraints>

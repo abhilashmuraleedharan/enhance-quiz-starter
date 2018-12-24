@@ -24,12 +24,24 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var progressLabel: UILabel!
     
-    // Declaring necessary stored properties
+    // MARK: - Stored properties
     var quiz = Quiz()
-    var gameTimer: Timer! 
+    var gameTimer: Timer!
     var timerRunning = false
     var secondsLeft = 15
-    var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
+    lazy var choice4Button: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        //Set a frame for the button.
+        button.frame = CGRect(x: 40, y: 422, width: 334, height: 50)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
+        //State dependent properties title and title color
+        button.setTitle("Choice 4", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(self.choice4ButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Actions
     @IBAction func choice1ButtonTapped(_ sender: UIButton) {
@@ -80,21 +92,6 @@ class QuizViewController: UIViewController {
         }
     }
     
-    // Helper method to make a UIButton programmatically
-    func makeButton(withText text: String) -> UIButton {
-        let choiceButton = UIButton(type: UIButton.ButtonType.system)
-        //Set a frame for the button.
-        choiceButton.frame = CGRect(x: 40, y: 422, width: 334, height: 50)
-        choiceButton.translatesAutoresizingMaskIntoConstraints = false
-        choiceButton.setBackgroundColor(UIColor(rgb: 0x7B7D96), for: .normal)
-        //State dependent properties title and title color
-        choiceButton.setTitle(text, for: .normal)
-        choiceButton.setTitleColor(UIColor.white, for: .normal)
-        choiceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        choiceButton.addTarget(self, action: #selector(self.choice4ButtonTapped), for: .touchUpInside)
-        return choiceButton
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let image = UIImage(named: "friends.png") {
@@ -102,7 +99,6 @@ class QuizViewController: UIViewController {
         }
         progressLabel.textColor = UIColor.brown
         timerLabel.textColor = UIColor.brown
-        choice4Button = makeButton(withText: "Choice 4")
         quiz.soundGenerator.playGameStartSound()
         displayQuestion()
     }
@@ -116,13 +112,12 @@ class QuizViewController: UIViewController {
             quiz.soundGenerator.playCorrectAnswerSound()
             resultLabel.textColor = UIColor.cyan
             resultLabel.text = "Correct!"
-            resultLabel.isHidden = false
         } else {
             quiz.soundGenerator.playWrongAnswerSound()
             resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.value)"
-            resultLabel.isHidden = false
         }
+        resultLabel.isHidden = false
         // To highlight the right answer
         switch (quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.index) {
         case 0: choice1Button.setBackgroundColor(UIColor.green, for: .normal)
@@ -130,7 +125,7 @@ class QuizViewController: UIViewController {
         case 2: choice3Button.setBackgroundColor(UIColor.green, for: .normal)
         case 3: choice4Button.setBackgroundColor(UIColor.green, for: .normal)
         default:
-            break;
+        break;
         }
         deactivateButtons()  // To prevent user from triggering any unwanted action
         checkStatus(after: 2)  // Check quiz progress and score status after 2 seconds
@@ -181,9 +176,7 @@ class QuizViewController: UIViewController {
         let quizQuestion = quiz.getQuestion()
         displayButtons()
         progressLabel.text = "\(quiz.questionsAsked)/\(quiz.questionsPerRound)"
-        if progressLabel.isHidden {
-            progressLabel.isHidden = false
-        }
+        progressLabel.isHidden = false
         questionLabel.text = quizQuestion.question
         choice1Button.setTitle(quizQuestion.choices[0], for: .normal)
         choice2Button.setTitle(quizQuestion.choices[1], for: .normal)
@@ -197,15 +190,12 @@ class QuizViewController: UIViewController {
         }
         playAgainButton.isHidden = true
         resetTimer()
-        if timerLabel.isHidden {
-            timerLabel.isHidden = false
-        }
+        timerLabel.isHidden = false
         startTimer()
     }
     
     /// Helper method to display the final quiz score
     func displayScore() {
-        
         // Hide buttons and labels
         timerLabel.isHidden = true
         progressLabel.isHidden = true
@@ -344,12 +334,12 @@ class QuizViewController: UIViewController {
     /// Helper method to re-space the 3 choice buttons and then add and accomodate a fourth button
     func accomodateChoice4Button() {
         view.addSubview(choice4Button)
-        view.addConstraints([
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: choice3Button, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 18),
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 40),
-            NSLayoutConstraint(item: self.view, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: choice4Button, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1.0, constant: 40),
-            NSLayoutConstraint(item: choice4Button, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: 50)
-            ])
+        NSLayoutConstraint.activate([
+            choice4Button.topAnchor.constraint(equalTo: choice3Button.bottomAnchor, constant: 18),
+            choice4Button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            choice4Button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            choice4Button.heightAnchor.constraint(equalToConstant: 50)
+        ])
         adjustPositions(ofButtons: 4)
     }
 }
