@@ -27,15 +27,14 @@ enum GameSoundError: Error {
     case invalidResource(description: String)
 }
 
-class Sound {
-    var sound: SystemSoundID = 0
+struct QuizSoundGenerator {
     var gameSound: SystemSoundID = 0
     
     /// Instance method to play game sound
-    func generateAudioOf(sound gameSound: GameSound, type soundType: SoundType = .wav) {
+    mutating func generateAudioOf(_ gameSound: GameSound, type soundType: SoundType = .wav) {
         do {
-            sound = try load(sound: gameSound, ofType: soundType)
-            play(gameSound: sound)
+            try load(sound: gameSound, ofType: soundType)
+            play(self.gameSound)
         } catch GameSoundError.invalidResource(let error) {
             fatalError("\(error)")
         } catch {
@@ -43,51 +42,50 @@ class Sound {
         }
     }
     
-    func playGameStartSound() {
-        generateAudioOf(sound: .startSound)
+    mutating func playGameStartSound() {
+        generateAudioOf(.startSound)
     }
     
     /// Instance method to play correct answer sound
-    func playCorrectAnswerSound() {
-        generateAudioOf(sound: .correctSound)
+    mutating func playCorrectAnswerSound() {
+        generateAudioOf(.correctSound)
     }
     
     /// Instance method to play wrong answer sound
-    func playWrongAnswerSound() {
-        generateAudioOf(sound: .wrongSound)
+    mutating func playWrongAnswerSound() {
+        generateAudioOf(.wrongSound)
     }
     
     /// Instance method to play winner sound
-    func playWinnerSound(gotChampion champion: Bool) {
+    mutating func playWinnerSound(gotChampion champion: Bool) {
         if champion {
-            generateAudioOf(sound: .geekSound)
+            generateAudioOf(.geekSound)
         } else {
-            generateAudioOf(sound: .winnerSound)
+            generateAudioOf(.winnerSound)
         }
     }
     
     /// Instance method to play loser sound
-    func playLoserSound() {
-        generateAudioOf(sound: .loserSound)
+    mutating func playLoserSound() {
+        generateAudioOf(.loserSound)
     }
     
     /// Instance method to play timeout sound
-    func playTimeOutSound() {
-        generateAudioOf(sound: .timeOverSound)
+    mutating func playTimeOutSound() {
+        generateAudioOf(.timeOverSound)
     }
     
     /// Helper method to load a game sound
-    func load(sound: GameSound, ofType type: SoundType) throws -> SystemSoundID {
+    mutating func load(sound: GameSound, ofType type: SoundType) throws {
         guard let path = Bundle.main.path(forResource: sound.rawValue, ofType: type.rawValue) else {
             throw GameSoundError.invalidResource(description: "Missing sound file")
         }
         let soundUrl = URL(fileURLWithPath: path)
         AudioServicesCreateSystemSoundID(soundUrl as CFURL, &gameSound)
-        return gameSound
     }
     
     /// Helper method to play a game sound
-    func play(gameSound: SystemSoundID) {
+    func play(_ gameSound: SystemSoundID) {
         AudioServicesPlaySystemSound(gameSound)
     }
 }

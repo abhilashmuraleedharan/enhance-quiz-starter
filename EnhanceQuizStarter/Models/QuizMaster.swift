@@ -7,7 +7,7 @@
 //
 
 // Data Model containing the list of all F.R.I.E.N.D.S Trivia Quiz Questions
-struct QuizQuestion {
+struct QuizMaster {
     let question1 = Question(question: "Which friend directed 'Since You've Been Gone'?",
                          rightAnswer: (3, "David Schwimmer"),
                          choices: ["Matt LeBlanc", "Matthew Perry", "Jennifer Aniston", "David Schwimmer"])

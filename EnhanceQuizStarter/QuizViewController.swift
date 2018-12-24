@@ -12,7 +12,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class QuizViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var timerLabel: UILabel!
@@ -25,8 +25,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressLabel: UILabel!
     
     // Declaring necessary stored properties
-    let quiz = Quiz()
-    var gameTimer: Timer!  // create a property of the type Timer!
+    var quiz = Quiz()
+    var gameTimer: Timer! 
     var timerRunning = false
     var secondsLeft = 15
     var choice4Button: UIButton!  // To create a choice4Button programmatically when needed
@@ -38,8 +38,8 @@ class ViewController: UIViewController {
         
         // Evaluate the chosen answer
         if let chosenAnswer = choice1Button.titleLabel?.text {
-            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
-            announceResult(status: isCorrect)
+            let status = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status)
         }
     }
     
@@ -47,8 +47,8 @@ class ViewController: UIViewController {
         choice2Button.setBackgroundColor(UIColor.red, for: .normal)
         
         if let chosenAnswer = choice2Button.titleLabel?.text {
-            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
-            announceResult(status: isCorrect)
+            let status = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status)
         }
     }
     
@@ -56,32 +56,32 @@ class ViewController: UIViewController {
         choice3Button.setBackgroundColor(UIColor.red, for: .normal)
         
         if let chosenAnswer = choice3Button.titleLabel?.text {
-            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
-            announceResult(status: isCorrect)
+            let status = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status)
         }
     }
     
     @IBAction func playAgain(_ sender: UIButton) {
         if let buttonTitle = playAgainButton.titleLabel?.text {
             if buttonTitle == "Play Again" {
-                quiz.quizSound.playGameStartSound()
+                quiz.soundGenerator.playGameStartSound()
             }
         }
-        nextRound()
+        loadNextRound()
     }
     
-    // choice4 button action method
+    /// choice4 button target action method
     @objc func choice4ButtonTapped(_ sender: UIButton) {
         sender.setBackgroundColor(UIColor.red, for: .normal)
         
         if let chosenAnswer = sender.titleLabel?.text {
-            let isCorrect = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
-            announceResult(status: isCorrect)
+            let status = quiz.evaluate(answer: chosenAnswer, ofQuestion: quiz.indexOfSelectedQuestion)
+            announceResult(status)
         }
     }
     
     // Helper method to make a UIButton programmatically
-    func makeButtonWithText(text:String) -> UIButton {
+    func makeButton(withText text: String) -> UIButton {
         let choiceButton = UIButton(type: UIButton.ButtonType.system)
         //Set a frame for the button.
         choiceButton.frame = CGRect(x: 40, y: 422, width: 334, height: 50)
@@ -102,23 +102,23 @@ class ViewController: UIViewController {
         }
         progressLabel.textColor = UIColor.brown
         timerLabel.textColor = UIColor.brown
-        choice4Button = makeButtonWithText(text: "Choice 4")
-        quiz.quizSound.playGameStartSound()
+        choice4Button = makeButton(withText: "Choice 4")
+        quiz.soundGenerator.playGameStartSound()
         displayQuestion()
     }
 
     /// Instance method to display the status of an answer to a question
-    func announceResult(status: Bool) {
+    func announceResult(_ status: Bool) {
         // Invalidate the timer
         gameTimer.invalidate()
         if status {
             quiz.correctQuestions += 1
-            quiz.quizSound.playCorrectAnswerSound()
+            quiz.soundGenerator.playCorrectAnswerSound()
             resultLabel.textColor = UIColor.cyan
             resultLabel.text = "Correct!"
             resultLabel.isHidden = false
         } else {
-            quiz.quizSound.playWrongAnswerSound()
+            quiz.soundGenerator.playWrongAnswerSound()
             resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Wrong! The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.value)"
             resultLabel.isHidden = false
@@ -132,7 +132,6 @@ class ViewController: UIViewController {
         default:
             break;
         }
-        gameTimer.invalidate()
         deactivateButtons()  // To prevent user from triggering any unwanted action
         checkStatus(after: 2)  // Check quiz progress and score status after 2 seconds
     }
@@ -158,7 +157,7 @@ class ViewController: UIViewController {
         timerLabel.text = "\(secondsLeft)"
         if (secondsLeft == 0) {
             gameTimer.invalidate()
-            quiz.quizSound.playTimeOutSound()
+            quiz.soundGenerator.playTimeOutSound()
             resultLabel.textColor = UIColor.yellow
             resultLabel.text = "Sorry! Time's up. The right answer is \(quiz.questions[quiz.indexOfSelectedQuestion].rightAnswer.value)"
             resultLabel.isHidden = false
@@ -219,18 +218,18 @@ class ViewController: UIViewController {
         // Annouce result with appropriate sound
         if (quiz.correctQuestions == quiz.questionsPerRound) {
             questionLabel.text = "Perfection! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound)!"
-            quiz.quizSound.playWinnerSound(gotChampion: true)
+            quiz.soundGenerator.playWinnerSound(gotChampion: true)
         } else if quiz.correctQuestions > quiz.questionsPerRound / 2 {
             questionLabel.text = "Awesome! You got \(quiz.correctQuestions) out of \(quiz.questionsPerRound) right!"
-            quiz.quizSound.playWinnerSound(gotChampion: false)
+            quiz.soundGenerator.playWinnerSound(gotChampion: false)
         } else {
             questionLabel.text = "You got only \(quiz.correctQuestions) out of \(quiz.questionsPerRound) correct! Try Again?"
-            quiz.quizSound.playLoserSound()
+            quiz.soundGenerator.playLoserSound()
         }
     }
     
     /// Helper method that gives next round of questions
-    func nextRound() {
+    func loadNextRound() {
             secondsLeft = 15
             activateButtons()
             displayQuestion()
@@ -313,7 +312,7 @@ class ViewController: UIViewController {
             resultLabel.text = "Game Over!"
             displayScore()
             gameTimer.invalidate()
-            quiz.askedQuestionIndexes = []
+            quiz.askedQuestionsIndices = []
             quiz.questionsAsked = 0
             quiz.correctQuestions = 0
         } else {
@@ -342,7 +341,7 @@ class ViewController: UIViewController {
         adjustPositions(ofButtons: 3)
     }
     
-    /// Helper method to respace the 3 choice buttons to add and accomodate a fourth button
+    /// Helper method to re-space the 3 choice buttons and then add and accomodate a fourth button
     func accomodateChoice4Button() {
         view.addSubview(choice4Button)
         view.addConstraints([

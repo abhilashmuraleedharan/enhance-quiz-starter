@@ -8,30 +8,32 @@
 
 import GameKit
 
-class Quiz {
-    let quizMaster = QuizQuestion()
-    let quizSound = Sound()
+struct Quiz {
+    let quizMaster = QuizMaster()
+    var soundGenerator = QuizSoundGenerator()
     let questions: [Question]
     let questionsPerRound = 6
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion = 0
-    var askedQuestionIndexes: [Int]  // To keep track of indices of questions that's already asked
+    var askedQuestionsIndices = [Int]()  // To keep track of indices of questions that are already asked
+    var lightningRoundTimer: Timer!
+    var isTimerRunning = false
+    var lightningRoundDuration = 15
     
     init() {
-        askedQuestionIndexes = []
         questions = quizMaster.setQuestions()
     }
     
     /// Instance method to get a random question
-    func getQuestion() -> Question {
+    mutating func getQuestion() -> Question {
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
         // To prevent getting the same question
-        while (askedQuestionIndexes.contains(indexOfSelectedQuestion)) {
+        while (askedQuestionsIndices.contains(indexOfSelectedQuestion)) {
             indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
         }
         // Store the indices of questions already generated
-        askedQuestionIndexes.append(indexOfSelectedQuestion)
+        askedQuestionsIndices.append(indexOfSelectedQuestion)
         questionsAsked += 1
         return questions[indexOfSelectedQuestion]
     }
